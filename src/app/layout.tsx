@@ -12,6 +12,7 @@ const links = [
   { href: "/enroll", label: "Kayıt" },
   { href: "/recognize", label: "Tanıma" },
   { href: "/admin", label: "Yönetim" },
+    { href: "/verify", label: "Doğrulama" },
 ];
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

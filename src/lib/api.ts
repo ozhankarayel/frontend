@@ -57,3 +57,21 @@ export async function recognize(blob: Blob): Promise<RecognizeResult> {
   form.append("image", blob, "frame.jpg");
   return parse(await fetch(`${API}/recognize/`, { method: "POST", body: form }));
 }
+
+export type VerifyResult = {
+  status: "accepted" | "rejected" | "spoof" | "no_face" | "empty_gallery";
+  person?: { id: number; name: string } | null;
+  score?: number;
+  liveness?: {
+    blink: boolean;
+    ear_baseline: number | null;
+    ear_min: number | null;
+    frames_used: number;
+  };
+};
+
+export async function verify(blobs: Blob[]): Promise<VerifyResult> {
+  const form = new FormData();
+  blobs.forEach((b, i) => form.append("images", b, `f${i}.jpg`));
+  return parse(await fetch(`${API}/verify/`, { method: "POST", body: form }));
+}
